@@ -11,7 +11,29 @@ var config = {
   storageBucket: "shopping-app-124ec.appspot.com",
   messagingSenderId: "631353994042",
   appId: "1:631353994042:web:eb99239cbfd1b107f47e03",
-  measurementId: "G-VTBHKJSQPG"
+  measurementId: "G-VTBHKJSQPG",
+};
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const snapshot = await userRef.get();
+
+  if (!snapshot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log("error creating user", error.message);
+    }
+  }
+  return userRef;
 };
 
 if (!firebase.apps.length) {

@@ -9,7 +9,7 @@ class SignIn extends React.Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
     };
   }
 
@@ -17,7 +17,7 @@ class SignIn extends React.Component {
     event.preventDefault();
     this.setState({
       email: "",
-      password: ""
+      password: "",
     });
   };
 
@@ -27,7 +27,6 @@ class SignIn extends React.Component {
   };
 
   render() {
-    console.log(signInWithGoogle);
     return (
       <div className="sign-in">
         <h2>I already have account</h2>
@@ -51,10 +50,12 @@ class SignIn extends React.Component {
             required
           />
 
-          <CustomButton type="submit">Sign In</CustomButton>
-          <CustomButton onClick={signInWithGoogle}>
-            Sign With Google
-          </CustomButton>
+          <div className="buttons">
+            <CustomButton type="submit">Sign In</CustomButton>
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+              Sign With Google
+            </CustomButton>
+          </div>
         </form>
       </div>
     );
